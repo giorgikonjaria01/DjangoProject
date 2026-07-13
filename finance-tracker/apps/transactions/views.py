@@ -4,6 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Transaction
 from .forms import TransactionForm
 from django.db.models import Sum
+from apps.transactions.recurrence import generate_recurring_transactions
 
 class TransactionListView(LoginRequiredMixin, ListView):
 
@@ -13,6 +14,7 @@ class TransactionListView(LoginRequiredMixin, ListView):
 
 
     def get_queryset(self):
+        generate_recurring_transactions()
         return Transaction.objects.filter(
             user=self.request.user,
             deleted_at__isnull=True
