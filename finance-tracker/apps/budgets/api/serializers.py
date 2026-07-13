@@ -4,7 +4,7 @@ from .views import (
     TransactionListCreateAPIView,
     TransactionDetailAPIView,
     CategoryListAPIView,
-    BalanceAPIView
+    BalancedAPIView
 
 )
 
@@ -21,5 +21,5 @@ urlpatterns = [
         TransactionDetailAPIView.as_view()
     ),
     path("categories/", CategoryListAPIView.as_view(), name="api-categories"),
-    path("balance", BalanceAPIView.as_view(), name="api-balance"),
+    path("balance", BalancedAPIView.as_view(), name="api-balance"),
 ]
