@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% load finance_filters %}
+
+{% block content %}
+
+<h1>Transactions</h1>
+
+{% for transaction in transactions %}
+
+<div>
+    <p>
+        {{ transaction.description }}
+    </p>
+
+    <p>
+        Amount: {{ transaction.amount|currency }}
+    </p>
+
+    <p>
+        Date: {{ transaction.date }}
+    </p>
+</div>
+
+{% endfor %}
+
+{% endblock %}

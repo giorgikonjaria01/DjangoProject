@@ -1,36 +1,38 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-
+from .forms import RegisterForm
 from .models import User
 
 
 def register(request):
+
     if request.method == "POST":
-        username = request.POST["username"]
-        email = request.POST["email"]
-        password = request.POST["password"]
+        form = RegisterForm(request.POST)
 
-        if User.objects.filter(username=username).exists():
-            messages.error(request, "Username already exists")
-            return redirect("register")
+        if form.is_valid():
+            user = form.save()
 
-        user = User.objects.create_user(
-            username=username,
-            email=email,
-            password=password
-        )
+            login(request, user)
 
-        login(request, user)
+            messages.success(
+                request,
+                "Account created successfully"
+            )
 
-        messages.success(
-            request,
-            "Account created successfully"
-        )
+            return redirect("/")
 
-        return redirect("dashboard")
+    else:
+        form = RegisterForm()
 
-    return render(request, "accounts/register.html")
+
+    return render(
+        request,
+        "accounts/register.html",
+        {
+            "form": form
+        }
+    )
 
 
 def login_view(request):
