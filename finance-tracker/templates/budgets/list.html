@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+<h1>Budgets</h1>
+
+
+<a href="{% url 'budget-create' %}">
+Add budget
+</a>
+
+
+{% for budget in budgets %}
+
+<p>
+{{ budget.description }}
+-
+{{ budget.amount }}
+</p>
+
+{% empty %}
+
+<p>
+No budgets yet
+</p>
+
+{% endfor %}
+
+
+{% endblock %}
