@@ -17,6 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.shortcuts import redirect
+from apps.transactions.views import DashboardView
 
 
 def home(request):
@@ -32,4 +33,5 @@ urlpatterns = [
     path("api/", include("apps.transactions.api.urls")),
     path("api/budgets/", include("apps.budgets.api.urls")),
     path("api/auth/", include("apps.accounts.api.urls")),
+    path("", DashboardView.as_view(), name="dashboard"),
 ]

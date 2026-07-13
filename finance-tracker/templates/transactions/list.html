@@ -1,31 +1,123 @@
 {% extends "base.html" %}
 
 
+{% block title %}
+Transactions
+{% endblock %}
+
+
+
 {% block content %}
 
-<h1>Transactions</h1>
+
+<div class="d-flex justify-content-between align-items-center mb-4">
 
 
-<a href="{% url 'transaction-create' %}">
-Add transaction
-</a>
+    <h1>
+        Transactions
+    </h1>
+
+
+    <a 
+        href="{% url 'transaction-create' %}"
+        class="btn btn-primary"
+    >
+        + Add Transaction
+    </a>
+
+
+</div>
+
+
+
+<div class="row">
 
 
 {% for transaction in transactions %}
 
-<p>
+
+<div class="col-md-6 col-lg-4 mb-3">
+
+
+<div class="card shadow-sm">
+
+
+<div class="card-body">
+
+
+<h5 class="card-title">
+
+{{ transaction.category }}
+
+</h5>
+
+
+
+<p class="text-muted">
+
 {{ transaction.description }}
--
-{{ transaction.amount }}
+
 </p>
+
+
+
+{% if transaction.type == "income" %}
+
+
+<h4 class="text-success">
+
++{{ transaction.amount }} GEL
+
+</h4>
+
+
+{% else %}
+
+
+<h4 class="text-danger">
+
+-{{ transaction.amount }} GEL
+
+</h4>
+
+
+{% endif %}
+
+
+
+<p class="small text-muted">
+
+{{ transaction.date }}
+
+</p>
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
 
 {% empty %}
 
-<p>
-No transactions yet
-</p>
+
+<div class="alert alert-info">
+
+No transactions yet.
+
+</div>
+
 
 {% endfor %}
+
+
+
+</div>
 
 
 {% endblock %}

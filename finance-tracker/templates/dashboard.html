@@ -1,0 +1,185 @@
+{% extends "base.html" %}
+
+
+
+{% block title %}
+Dashboard
+{% endblock %}
+
+
+
+
+{% block content %}
+
+
+
+<h1 class="mb-4">
+Dashboard
+</h1>
+
+
+
+<div class="row mb-4">
+
+
+
+<div class="col-md-4">
+
+
+<div class="card shadow-sm bg-success text-white">
+
+
+<div class="card-body">
+
+
+<h5>
+Income
+</h5>
+
+
+<h2>
+{{ income }} GEL
+</h2>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+<div class="col-md-4">
+
+
+<div class="card shadow-sm bg-danger text-white">
+
+
+<div class="card-body">
+
+
+<h5>
+Expenses
+</h5>
+
+
+<h2>
+{{ expenses }} GEL
+</h2>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+<div class="col-md-4">
+
+
+<div class="card shadow-sm bg-primary text-white">
+
+
+<div class="card-body">
+
+
+<h5>
+Balance
+</h5>
+
+
+<h2>
+{{ balance }} GEL
+</h2>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+<div class="card shadow">
+
+
+<div class="card-body">
+
+
+<h3>
+Recent Transactions
+</h3>
+
+
+
+<table class="table">
+
+
+<tr>
+
+<th>
+Category
+</th>
+
+<th>
+Amount
+</th>
+
+</tr>
+
+
+
+{% for transaction in transactions %}
+
+
+<tr>
+
+<td>
+{{ transaction.category }}
+</td>
+
+
+<td>
+
+{{ transaction.amount }} GEL
+
+</td>
+
+
+</tr>
+
+
+
+{% endfor %}
+
+
+</table>
+
+
+
+</div>
+
+
+</div>
+
+
+
+{% endblock %}
