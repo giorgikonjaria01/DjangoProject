@@ -126,3 +126,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 EXCHANGE_API_URL = config(
     "EXCHANGE_API_URL"
 )
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    )
+}
