@@ -1,6 +1,6 @@
 from django.db import models
 from apps.accounts.models import User
-
+from .managers import TransactionManager
 
 class Category(models.Model):
     user = models.ForeignKey(
@@ -59,6 +59,8 @@ class Transaction(models.Model):
         null=True,
         blank=True
     )
+    
+    objects = TransactionManager()
 
     def __str__(self):
         return f"{self.type}: {self.amount}"
