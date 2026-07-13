@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import (
     TransactionListView,
-    TransactionCreateView
+    TransactionCreateView,
 )
 from .api_views import (
     TransactionListCreateAPIView,
@@ -37,5 +37,5 @@ urlpatterns = [
         TransactionDetailAPIView.as_view(),
         name="transaction-api-detail"
     ),
-
+    
 ]

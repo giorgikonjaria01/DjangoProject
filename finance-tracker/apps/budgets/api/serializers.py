@@ -1,25 +1,9 @@
-from django.urls import path
-
-from .views import (
-    TransactionListCreateAPIView,
-    TransactionDetailAPIView,
-    CategoryListAPIView,
-    BalancedAPIView
-
-)
+from rest_framework import serializers
+from ..models import Budget
 
 
-urlpatterns = [
+class BudgetSerializer(serializers.ModelSerializer):
 
-    path(
-        "transactions/",
-        TransactionListCreateAPIView.as_view()
-    ),
-
-    path(
-        "transactions/<int:pk>/",
-        TransactionDetailAPIView.as_view()
-    ),
-    path("categories/", CategoryListAPIView.as_view(), name="api-categories"),
-    path("balance", BalancedAPIView.as_view(), name="api-balance"),
-]
+    class Meta:
+        model = Budget
+        fields = "__all__"

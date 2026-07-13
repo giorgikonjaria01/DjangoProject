@@ -1,7 +1,6 @@
 from django.views.generic import ListView, CreateView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
-
 from .models import Transaction
 from .forms import TransactionForm
 
@@ -34,3 +33,4 @@ class TransactionCreateView(LoginRequiredMixin, CreateView):
         form.instance.user = self.request.user
 
         return super().form_valid(form)
+    

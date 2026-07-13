@@ -6,6 +6,7 @@ from .serializers import TransactionSerializer, CategorySerializer
 from django.db.models import Sum
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from ..services import CurrencyConverter
 
 class TransactionListCreateAPIView(generics.ListCreateAPIView):
     serializer_class = TransactionSerializer
@@ -77,4 +78,30 @@ class BalanceAPIView(APIView):
             "income": income,
             "expenses": expenses,
             "balance": income - expenses
+        })
+    
+class ConvertCurrencyAPIView(APIView):
+
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+
+        amount = float(
+            request.GET.get("amount")
+        )
+
+        to_currency = request.GET.get(
+            "to"
+        )
+
+        converter = CurrencyConverter()
+
+        result = converter.convert(
+            amount,
+            "GEL",
+            to_currency
+        )
+
+        return Response({
+            "converted": result
         })

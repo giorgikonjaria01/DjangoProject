@@ -2,6 +2,11 @@ from django.db.models import Sum
 from .models import Transaction
 from django.utils import timezone
 import requests 
+from django.conf import settings
+from django.core.cache import cache
+from rest_framework.views import APIView
+from rest_framework.permissions import IsAuthenticated
+
 class TransactionService:
 
     def get_monthly_summary(self, user, month, year):
@@ -43,16 +48,36 @@ class TransactionService:
 
 
 
-class CurrencyConverter(TransactionService):
+class CurrencyConverter:
 
-    def convert(self, amount, from_currency, to_currency):
+    def convert(
+        self,
+        amount,
+        from_currency,
+        to_currency
+    ):
 
-        response = requests.get(
-            "https://api.exchangerate-api.com/v4/latest/GEL"
-        )
+        rates = cache.get("exchange_rates")
 
-        data = response.json()
+        if not rates:
 
-        rate = data["rates"][to_currency]
+            response = requests.get(
+                settings.EXCHANGE_API_URL
+            )
 
-        return amount * rate
+            data = response.json()
+
+            rates = data["rates"]
+
+            cache.set(
+                "exchange_rates",
+                rates,
+                3600
+            )
+
+
+        if from_currency == "GEL":
+            return amount * rates[to_currency]
+
+        return amount
+    

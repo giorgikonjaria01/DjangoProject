@@ -41,8 +41,7 @@ INSTALLED_APPS = [
     'apps.accounts',
     'apps.transactions',
     'apps.budgets',
-    'rest_framework',
-    
+
 ]
 
 MIDDLEWARE = [
@@ -124,3 +123,6 @@ STATIC_URL = 'static/'
 
 AUTH_USER_MODEL = "accounts.User"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+EXCHANGE_API_URL = config(
+    "EXCHANGE_API_URL"
+)
