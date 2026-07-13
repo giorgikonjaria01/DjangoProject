@@ -43,7 +43,24 @@ Transactions
 
 
 <div class="card-body">
+    <div class="d-flex gap-2">
 
+<a 
+href="{% url 'transaction-update' transaction.id %}"
+class="btn btn-sm btn-warning"
+>
+Edit
+</a>
+
+
+<a 
+href="{% url 'transaction-delete' transaction.id %}"
+class="btn btn-sm btn-danger"
+>
+Delete
+</a>
+
+</div>
 
 <h5 class="card-title">
 

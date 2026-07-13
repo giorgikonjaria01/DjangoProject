@@ -62,5 +62,24 @@ class Transaction(models.Model):
     
     objects = TransactionManager()
 
+    RECURRENCE_CHOICES = [
+    ("none", "None"),
+    ("daily", "Daily"),
+    ("weekly", "Weekly"),
+    ("monthly", "Monthly"),
+]
+
+    recurrence_rule = models.CharField(
+        max_length=10,
+        choices=RECURRENCE_CHOICES,
+        default="none",
+    )
+
+    next_occurrence = models.DateField(
+        null=True,
+        blank=True,
+    )
+
+
     def __str__(self):
         return f"{self.type}: {self.amount}"

@@ -4,8 +4,10 @@ from .views import RegisterAPIView
 
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
-    TokenRefreshView
+    TokenRefreshView,
 )
+
+from django.contrib.auth.views import LogoutView
 
 
 urlpatterns = [
@@ -26,6 +28,12 @@ urlpatterns = [
         "refresh/",
         TokenRefreshView.as_view(),
         name="api-refresh"
+    ),
+
+    path(
+        "logout/",
+        LogoutView.as_view(),
+        name="logout"
     ),
 
 ]
