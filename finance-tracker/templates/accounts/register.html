@@ -1,0 +1,21 @@
+<h2>Register</h2>
+
+<form method="POST">
+
+{% csrf_token %}
+
+<input name="username" placeholder="Username">
+
+<input name="email" placeholder="Email">
+
+<input 
+type="password"
+name="password"
+placeholder="Password"
+>
+
+<button>
+Register
+</button>
+
+</form>
