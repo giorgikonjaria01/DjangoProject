@@ -35,29 +35,42 @@ def register(request):
     )
 
 
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
+from django.contrib.auth.forms import AuthenticationForm
+
+
 def login_view(request):
 
     if request.method == "POST":
 
-        username = request.POST["username"]
-        password = request.POST["password"]
+        form = AuthenticationForm(request, data=request.POST)
 
-        user = authenticate(
-            request,
-            username=username,
-            password=password
-        )
+        if form.is_valid():
 
-        if user:
+            user = form.get_user()
+
             login(request, user)
-            return redirect("dashboard")
 
-        messages.error(
-            request,
-            "Invalid credentials"
-        )
+            messages.success(
+                request,
+                "Logged in successfully"
+            )
 
-    return render(request, "accounts/login.html")
+            return redirect("/")
+
+    else:
+        form = AuthenticationForm()
+
+
+    return render(
+        request,
+        "accounts/login.html",
+        {
+            "form": form
+        }
+    )
 
 
 def logout_view(request):

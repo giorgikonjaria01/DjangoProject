@@ -1,27 +1,31 @@
 {% extends "base.html" %}
 
-{% load finance_filters %}
 
 {% block content %}
 
 <h1>Transactions</h1>
 
+
+<a href="{% url 'transaction-create' %}">
+Add transaction
+</a>
+
+
 {% for transaction in transactions %}
 
-<div>
-    <p>
-        {{ transaction.description }}
-    </p>
+<p>
+{{ transaction.description }}
+-
+{{ transaction.amount }}
+</p>
 
-    <p>
-        Amount: {{ transaction.amount|currency }}
-    </p>
+{% empty %}
 
-    <p>
-        Date: {{ transaction.date }}
-    </p>
-</div>
+<p>
+No transactions yet
+</p>
 
 {% endfor %}
+
 
 {% endblock %}
